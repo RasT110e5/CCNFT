@@ -8,6 +8,7 @@ import {ERC721} from "../lib/openzeppelin-contracts/contracts/token/ERC721/ERC72
 import {IERC721} from "../lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol";
 import {ERC721Enumerable} from "../lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import {Counters} from "../lib/openzeppelin-contracts/contracts/utils/Counters.sol";
+import {Strings} from "../lib/openzeppelin-contracts/contracts/utils/Strings.sol";
 
 
 contract CCNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
@@ -24,24 +25,26 @@ contract CCNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
     // Reclamo NFTs.
     // claimer: La dirección del usuario que reclama los NFTs.
     // tokenId: El ID único del NFT reclamado.
-    event Claim();
+    event Claim(address indexed claimer, uint256 indexed tokenId);
 
     // Transferencia de NFT de un usuario a otro.
     // buyer: La dirección del comprador del NFT.
     // seller: La dirección del vendedor del NFT.
     // tokenId: El ID único del NFT que se transfiere.
     // value: El valor pagado por el comprador al vendedor por el NFT (No indexed).
-    event Trade();
+    event Trade(address indexed buyer, address indexed seller, uint256 indexed tokenId, uint256 value);
 
     // Venta de un NFT.
     // tokenId: El ID único del NFT que se pone en venta.
     // price: El precio al cual se pone en venta el NFT (No indexed).
-    event PutOnSale();
+    event PutOnSale(uint256 indexed tokenId, uint256 price);
 
     // Estructura del estado de venta de un NFT.
     struct TokenSale {
         // Indicamos si el NFT está en venta.
+        bool onSale;
         // Indicamos el precio del NFT si está en venta.
+        uint256 price;
     }
 
     // Biblioteca Counters de OpenZeppelin para manejar contadores de manera segura.
@@ -68,9 +71,9 @@ contract CCNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
     address public feesCollector;
     // Booleano que indica si las compras de NFTs están permitidas.
     bool public canBuy;
-    // Booleano que indica si la reclamación (quitar) de NFTs está permitida.
+    // Booleano que indica si la reclamación (quitar) de NFTs está permitida. 
     bool public canClaim;
-    // Booleano que indica si la transferencia de NFTs está permitida.
+    // Booleano que indica si la transferencia de NFTs está permitida. 
     bool public canTrade;
     // Valor total acumulado de todos los NFTs en circulación.
     uint256 public totalValue;
@@ -85,54 +88,57 @@ contract CCNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
     // Porcentaje adicional a pagar en las reclamaciones.
     uint32 public profitToPay;
 
-    // Referencia al contrato ERC20 manejador de fondos.
+    // Referencia al contrato ERC20 manejador de fondos. 
     IERC20 public fundsToken;
 
-    // Constructor (nombre y símbolo del NFT).
+    // Constructor (nombre y símbolo del NFT).    
     constructor() ERC721("CC", "CCNFT") {
         // Inicialización de variables.
         fundsCollector = address(0);
         feesCollector = address(0);
+        canBuy = false;
+        canClaim = false;
+        canTrade = false;
+        buyFee = 0;
+        tradeFee = 0;
+        maxBatchCount = 10;
+        profitToPay = 0;
+        maxValueToRaise = type(uint256).max;
     }
 
     // PUBLIC FUNCTIONS
 
-    // Funcion de compra de NFTs.
+    // Funcion de compra de NFTs. 
     // Parametro value: El valor de cada NFT que se está comprando.
     // Parametro amount: La cantidad de NFTs que se quieren comprar.
-    function buy() external nonReentrant {
+    function buy(uint256 value, uint256 amount) external nonReentrant {
         // Verificación de permisos de la compra con "canBuy". Incluir un mensaje de falla.
-        require();
+        require(canBuy, "Buying is disabled");
         // Verificacón de la cantidad de NFTs a comprar sea mayor que 0 y menor o igual al máximo permitido (maxBatchCount). Incluir un mensaje de falla.
-        require();
+        require(amount > 0 && amount <= maxBatchCount, string.concat("Invalid amount, it needs to be greater than 0 and less than ", Strings.toString(maxBatchCount)));
         // Verificación del valor especificado para los NFTs según los valores permitidos en validValues. Incluir un mensaje de falla.
-        require();
-        // Verificacón del valor total después de la compra (no debe exeder el valor máximo permitido "maxValueToRaise"). Incluir un mensaje de falla.
-        require();
+        require(validValues[value], "Invalid value, not in valid values");
+        // Verificación del valor total después de la compra (no debe exeder el valor máximo permitido "maxValueToRaise"). Incluir un mensaje de falla.
+        require(totalValue + value * amount <= maxValueToRaise, "Max value exceeded");
         // Incremento del valor total acumulado por el valor de los NFTs comprados.
-        totalValue +=;
+        totalValue += value * amount;
 
-        // Bucle desde 1 hasta amount (inclusive) para mintear la cantidad especificada de NFTs.
-        for () {
-            // Asignar el valor del NFT al tokenId actual "current()" en el mapeo values.
-            values[] = value;
-            // Minteo de NFT y asignación al msg.sender.
-            _safeMint();
-            // Evento Buy con el comprador, el tokenId y el valor del NFT.
-            emit Buy();
-
-            ; // Incremento del contador tokenIdTracker (NFT deben tener un tokenId único).
+        for (uint256 i = 0; i < amount; i++) {
+            uint256 newTokenId = tokenIdTracker.current();
+            values[newTokenId] = value;
+            _safeMint(_msgSender(), newTokenId);
+            emit Buy(_msgSender(), newTokenId, value);
+            tokenIdTracker.increment();
         }
 
         // Transfencia de fondos desde el comprador (_msgSender()) al recolector de fondos (fundsCollector) por el valor total de los NFTs comprados.
-        if (!fundsToken.transferFrom(_msgSender(), fundsCollector, value * amount)) {
-            revert("Cannot send funds tokens"); // Incluir un mensaje de falla.
-        }
+        require(fundsToken.transferFrom(_msgSender(), fundsCollector, value * amount), "Cannot send funds tokens");
 
         // Transferencia de tarifas de compra desde el comprador (_msgSender()) al recolector de tarifas (feesCollector).
         // Tarifa = fracción del valor total de la compra (value * amount * buyFee / 10000).
-        if (!fundsToken.transferFrom(_msgSender(), feesCollector, value * amount * buyFee / 10000)) {
-            revert("Cannot send fees tokens"); // Incluir un mensaje de falla.
+        uint256 feeAmount = (value * amount * buyFee) / 10000;
+        if (feeAmount > 0) {
+            require(fundsToken.transferFrom(_msgSender(), feesCollector, feeAmount), "Cannot send fees tokens");
         }
     }
 
@@ -172,12 +178,11 @@ contract CCNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
             // Registrar el ID y propietario del token reclamado.
             emit Claim();
         }
-        ; // Reducir el totalValue acumulado.
 
         // Calculo del monto total a transferir (claimValue + (claimValue * profitToPay / 10000)).
         // Transferir los fondos desde fundsCollector al (_msgSender()).
         if () {
-        revert("cannot send funds"); // Incluir un mensaje de falla.
+            revert("cannot send funds"); // Incluir un mensaje de falla.
         }
     }
 
@@ -347,25 +352,16 @@ contract CCNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
 
     // Funciones para deshabilitar las transferencias de NFTs,
 
-    function transferFrom(address, address, uint256)
-    public
-    pure
-    override(ERC721, IERC721)
+    function transferFrom(address, address, uint256) public pure override(ERC721, IERC721) {
+        revert("Not Allowed");
+    }
+
+    function safeTransferFrom(address, address, uint256) public pure override(ERC721, IERC721)
     {
         revert("Not Allowed");
     }
 
-    function safeTransferFrom(address, address, uint256)
-    public pure override(ERC721, IERC721)
-    {
-        revert("Not Allowed");
-    }
-
-    function safeTransferFrom(address, address, uint256, bytes memory)
-    public
-    pure
-    override(ERC721, IERC721)
-    {
+    function safeTransferFrom(address, address, uint256, bytes memory) public pure override(ERC721, IERC721) {
         revert("Not Allowed");
     }
 
