@@ -5,6 +5,7 @@ import {Ownable} from "../lib/openzeppelin-contracts/contracts/access/Ownable.so
 import {ReentrancyGuard} from "../lib/openzeppelin-contracts/contracts/security/ReentrancyGuard.sol";
 import {IERC20} from "../lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 import {ERC721} from "../lib/openzeppelin-contracts/contracts/token/ERC721/ERC721.sol";
+import {IERC721} from "../lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol";
 import {ERC721Enumerable} from "../lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import {Counters} from "../lib/openzeppelin-contracts/contracts/utils/Counters.sol";
 import {Strings} from "../lib/openzeppelin-contracts/contracts/utils/Strings.sol";
@@ -333,61 +334,25 @@ contract CCNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
     tradeFee = _tradeFee;
   }
   
-//    // ARRAYS
-//
-//    // Verificar duplicados en el array antes de agregar un nuevo valor.
-//    function addToArray() private { // Parámetro, array de enteros donde se añadirá el valor y valor que se añadirá al array.
-//
-//        // Posición del value en el array list usando la función find.
-//        uint256 index = find();
-//        if () { // Si el valor no está en el array, push al final del array.
-//        }
-//    }
-//
-//    // Eliminar un valor del array.
-//    function removeFromArray() private { // Parámetros, array de enteros del cual se eliminará el valor y valor que se eliminara al array.
-//        // Posición del value en el array list usando la función find.
-//        uint256 index = find(list, value);
-//        if () { // Si el valor está en el array, reemplazar el valor con el último valor en el array y despues reducir el tamaño del array.
-//        }
-//    }
-//
-//    // Buscar un valor en un array y retornar su índice o la longitud del array si no se encuentra.
-//    function find() private pure returns (uint)  { // Parámetros, array de enteros en el cual se buscará el valor y valor que se buscará en el array..
-//
-//        for () { // Retornar la posición del valor en el array.
-//            if () {
-//            }
-//        }
-//        return; // Si no se encuentra, retornar la longitud del array.
-//    }
-//
-//    // NOT SUPPORTED FUNCTIONS
-//
-//    // Funciones para deshabilitar las transferencias de NFTs,
-//
-//    function transferFrom(address, address, uint256) public pure override(ERC721, IERC721) {
-//        revert("Not Allowed");
-//    }
-//
-//    function safeTransferFrom(address, address, uint256) public pure override(ERC721, IERC721)
-//    {
-//        revert("Not Allowed");
-//    }
-//
-//    function safeTransferFrom(address, address, uint256, bytes memory) public pure override(ERC721, IERC721) {
-//        revert("Not Allowed");
-//    }
-//
-//    // Compliance required by Solidity
-//
-//    // Funciones para asegurar que el contrato cumple con los estándares requeridos por ERC721 y ERC721Enumerable.
-//
-//    function _beforeTokenTransfer(address from, address to, uint256 tokenId)
-//    internal
-//    override(ERC721Enumerable)
-//    {
-//        super._beforeTokenTransfer(from, to, tokenId);
-//    }
-
+  // NOT SUPPORTED FUNCTIONS
+  // Funciones para deshabilitar las transferencias de NFTs,
+  function transferFrom(address, address, uint256) public pure override(ERC721, IERC721) {
+    revert("Not Allowed");
+  }
+  
+  function safeTransferFrom(address, address, uint256) public pure override(ERC721, IERC721)
+  {
+    revert("Not Allowed");
+  }
+  
+  function safeTransferFrom(address, address, uint256, bytes memory) public pure override(ERC721, IERC721) {
+    revert("Not Allowed");
+  }
+  
+  // Compliance required by Solidity
+  // Funciones para asegurar que el contrato cumple con los estándares requeridos por ERC721 y ERC721Enumerable.
+  function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override(ERC721Enumerable) {
+    super._beforeTokenTransfer(from, to, tokenId);
+  }
+  
 }
