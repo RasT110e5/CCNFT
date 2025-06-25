@@ -268,75 +268,71 @@ contract CCNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
     }
   }
   
-//
-//    // SETTERS
-//
-//    // Utilización del token ERC20 para transacciones.
-//    function setFundsToken() external onlyOwner { // Parámetro, token: Que va a ser la Dirección del contrato del token ERC20.
-//        // La dirección no puede ser la dirección cero (address(0)). Incluir un mensaje de falla.
-//        require();
-//        fundsToken = IERC20(token); // Contrato ERC20 a variable fundsToken.
-//    }
-//
-//    // Dirección para colectar los fondos de las ventas de NFTs.
-//    function setFundsCollector() external onlyOwner { // Parámetro, dirección de colector de fondos.
-//        // La dirección no puede ser la dirección cero (address(0))
-//        require();
-//        fundsCollector = _address; // Dirección proporcionada a la variable fundsCollector.
-//    }
-//
-//    // Dirección para colectar las tarifas de transacción.
-//    function setFeesCollector() external onlyOwner { // Parámetro, dirección del colector de tarifas.
-//        // La dirección no puede ser la dirección cero (address(0))
-//        require();
-//        feesCollector = _address; // Dirección proporcionada a la variable feesCollector.
-//    }
-//
-//    // Porcentaje de beneficio a pagar en las reclamaciones.
-//    function setProfitToPay() external onlyOwner { // Parámetro, porcentaje de beneficio a pagar.
-//        profitToPay = _profitToPay; // Valor proporcionado a la variable profitToPay.
-//    }
-//
-//    // Función que Habilita o deshabilita la compra de NFTs.
-//    function setCanBuy() external onlyOwner { // Parámetro, booleano que indica si la compra está permitida.
-//        canBuy = _canBuy;  // Valor proporcionado a la variable canBuy.
-//    }
-//
-//    // Función que Habilita o deshabilita la reclamación de NFTs.
-//    function setCanClaim() external onlyOwner { // Parámetro, booleano que indica si la reclamacion está permitida.
-//        canClaim = _canClaim; // Valor proporcionado a la variable canClaim.
-//    }
-//
-//    // Función que Habilita o deshabilita el intercambio de NFTs.
-//    function setCanTrade() external onlyOwner { // Parámetro, booleano que indica si la intercambio está permitido.
-//        canTrade = _canTrade; // Valor proporcionado a la variable canTrade.
-//    }
-//
-//    // Valor máximo que se puede recaudar de venta de NFTs.
-//    function setMaxValueToRaise() external onlyOwner { // Parámetro, valor máximo a recaudar.
-//        maxValueToRaise = _maxValueToRaise; // Valor proporcionado a la variable maxValueToRaise.
-//    }
-//
-//    // Función para agregar un valor válido para NFTs.
-//    function addValidValues() external onlyOwner { // Parámetro, valor que se quiere agregar como válido.
-//        validValues[value] = true; // Valor como válido en el mapeo validValues.
-//    }
-//
-//    // Función para establecer la cantidad máxima de NFTs por operación.
-//    function setMaxBatchCount() external onlyOwner { // Parámetro, cantidad máxima de NFTs por operación.
-//        maxBatchCount = _maxBatchCount; // Valor proporcionado a la variable maxBatchCount.
-//    }
-//
-//    // Tarifa aplicada a las compras de NFTs.
-//    function setBuyFee() external onlyOwner { // Parámetro, porcentaje de tarifa para compras.
-//        buyFee = _buyFee; // Valor proporcionado a la variable buyFee.
-//    }
-//
-//    // Tarifa aplicada a las transacciones de NFTs.
-//    function setTradeFee(uint16 _tradeFee) external onlyOwner { // Parámetro, porcentaje de tarifa para transacciones.
-//        tradeFee = _tradeFee; // Valor proporcionado a la variable tradeFee.
-//    }
-//
+  // SETTERS
+  
+  // Utilización del token ERC20 para transacciones.
+  function setFundsToken(address token) external onlyOwner {
+    require(token != address(0), "Invalid token address");
+    fundsToken = IERC20(token);
+  }
+  
+  // Dirección para colectar los fondos de las ventas de NFTs.
+  function setFundsCollector(address _address) external onlyOwner {
+    require(_address != address(0), "Invalid fund collector address");
+    fundsCollector = _address;
+  }
+  
+  // Dirección para colectar las tarifas de transacción.
+  function setFeesCollector(address _address) external onlyOwner {
+    require(_address != address(0), "Invalid fees collector address");
+    feesCollector = _address;
+  }
+  
+  // Porcentaje de beneficio a pagar en las reclamaciones.
+  function setProfitToPay(uint32 _profitToPay) external onlyOwner {
+    profitToPay = _profitToPay;
+  }
+  
+  // Función que Habilita o deshabilita la compra de NFTs.
+  function setCanBuy(bool _canBuy) external onlyOwner {
+    canBuy = _canBuy;
+  }
+  
+  // Función que Habilita o deshabilita la reclamación de NFTs.
+  function setCanClaim(bool _canClaim) external onlyOwner {
+    canClaim = _canClaim;
+  }
+  
+  // Función que Habilita o deshabilita el intercambio de NFTs.
+  function setCanTrade(bool _canTrade) external onlyOwner {
+    canTrade = _canTrade;
+  }
+  
+  // Valor máximo que se puede recaudar de venta de NFTs.
+  function setMaxValueToRaise(uint256 _maxValueToRaise) external onlyOwner {
+    maxValueToRaise = _maxValueToRaise;
+  }
+  
+  // Función para agregar un valor válido para NFTs.
+  function addValidValues(uint256 value) external onlyOwner {
+    validValues[value] = true;
+  }
+  
+  // Función para establecer la cantidad máxima de NFTs por operación.
+  function setMaxBatchCount(uint16 _maxBatchCount) external onlyOwner {
+    maxBatchCount = _maxBatchCount;
+  }
+  
+  // Tarifa aplicada a las compras de NFTs.
+  function setBuyFee(uint16 _buyFee) external onlyOwner {
+    buyFee = _buyFee;
+  }
+  
+  // Tarifa aplicada a las transacciones de NFTs.
+  function setTradeFee(uint16 _tradeFee) external onlyOwner {
+    tradeFee = _tradeFee;
+  }
+  
 //    // ARRAYS
 //
 //    // Verificar duplicados en el array antes de agregar un nuevo valor.
