@@ -245,7 +245,7 @@ contract CCNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
     // Verificción de existencia del tokenId mediante "_exists". Incluir un mensaje de falla.
     require(_exists(tokenId), "Token does not exist");
     // Verificación remitente de la transacción es propietario del token. Incluir un mensaje de falla.
-    require(ownerOf(tokenId) == _msgSender());
+    require(ownerOf(tokenId) == _msgSender(), "Only owner can put on sale");
     
     // Variable de almacenamiento de datos para el token.
     TokenSale storage tokenSale = tokensOnSale[tokenId];
