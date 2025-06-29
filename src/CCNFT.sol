@@ -10,9 +10,7 @@ import {ERC721Enumerable} from "../lib/openzeppelin-contracts/contracts/token/ER
 import {Counters} from "../lib/openzeppelin-contracts/contracts/utils/Counters.sol";
 import {Strings} from "../lib/openzeppelin-contracts/contracts/utils/Strings.sol";
 
-
 contract CCNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
-  
   // EVENTOS
   // indexed: Permiten realizar búsquedas en los registros de eventos.
   
@@ -198,7 +196,8 @@ contract CCNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
   }
   
   // Funcion de compra de NFT que esta en venta.
-  function trade(uint256 tokenId) external nonReentrant { // Parámetro: ID del token.
+  function trade(uint256 tokenId) external nonReentrant {
+    // Parámetro: ID del token.
     // Verificación del comercio de NFTs (canTrade). Incluir un mensaje de falla.
     require(canTrade, "Trading is disabled");
     // Verificación de existencia del tokenId (_exists). Incluir un mensaje de falla.
@@ -239,7 +238,8 @@ contract CCNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
   }
   
   // Función para poner en venta un NFT.
-  function putOnSale(uint256 tokenId, uint256 price) external { // Parámetros: ID y precio del token.
+  function putOnSale(uint256 tokenId, uint256 price) external {
+    // Parámetros: ID y precio del token.
     // Verificación de operaciones de comercio (canTrade). Incluir un mensaje de falla.
     require(canTrade, "Trading is disabled");
     // Verificción de existencia del tokenId mediante "_exists". Incluir un mensaje de falla.
@@ -340,8 +340,7 @@ contract CCNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
     revert("Not Allowed");
   }
   
-  function safeTransferFrom(address, address, uint256) public pure override(ERC721, IERC721)
-  {
+  function safeTransferFrom(address, address, uint256) public pure override(ERC721, IERC721) {
     revert("Not Allowed");
   }
   
@@ -354,5 +353,4 @@ contract CCNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
   function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override(ERC721Enumerable) {
     super._beforeTokenTransfer(from, to, tokenId);
   }
-  
 }
