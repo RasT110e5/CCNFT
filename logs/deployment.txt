@@ -1,0 +1,171 @@
+Ras@DESKTOP-U83U106 MINGW64 /e/code/blockchain/proyecto-final (master)
+$ make deployERC20AndVerify
+Deploying ERC20 contract and verifying...
+[⠊] Compiling...
+[⠒] Compiling 2 files with Solc 0.8.29
+[⠑] Solc 0.8.29 finished in 524.86ms
+Compiler run successful!
+Traces:
+  [1085981] DeployBUSD::run()
+    ├─ [0] VM::startBroadcast()
+    │   └─ ← [Return]
+    ├─ [1043763] → new BUSD@0xb25857e34131681a1E1e3185C3839c3810B6c6F5
+    ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x1639e03fCE590b71542A838e2641cD892676e5b0, value: 10000000000000000000000000 [1e25])
+    └─ ← [Return] 4752 bytes of code
+
+
+==========================
+
+Chain 11155111
+
+Estimated gas price: 0.002863922 gwei
+
+Estimated total gas used for script: 1548904
+
+Estimated amount required: 0.000004435940241488 ETH
+
+==========================
+
+##### sepolia
+✅  [Success] Hash: 0xd894cbecb2a8a1db82b06ca3ea8341e84f25c8f7a42f267702ff8d7792e5f1a2
+Contract Address: 0xb25857e34131681a1E1e3185C3839c3810B6c6F5
+Block: 8657037
+Paid: 0.00000240177182751 ETH (1191465 gas * 0.002015814 gwei)
+
+✅ Sequence #1 on sepolia | Total Paid: 0.00000240177182751 ETH (1191465 gas * avg 0.002015814 gwei)
+
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+##
+Start verification for (1) contracts
+Start verifying contract `0xb25857e34131681a1E1e3185C3839c3810B6c6F5` deployed on sepolia
+EVM version: cancun
+Compiler version: 0.8.29
+
+Submitting verification for [src/BUSD.sol:BUSD] 0xb25857e34131681a1E1e3185C3839c3810B6c6F5.
+Warning: Could not detect the deployment.; waiting 5 seconds before trying again (4 tries remaining)
+
+Submitting verification for [src/BUSD.sol:BUSD] 0xb25857e34131681a1E1e3185C3839c3810B6c6F5.
+Warning: Could not detect the deployment.; waiting 5 seconds before trying again (3 tries remaining)
+
+Submitting verification for [src/BUSD.sol:BUSD] 0xb25857e34131681a1E1e3185C3839c3810B6c6F5.
+Warning: Could not detect the deployment.; waiting 5 seconds before trying again (2 tries remaining)
+
+Submitting verification for [src/BUSD.sol:BUSD] 0xb25857e34131681a1E1e3185C3839c3810B6c6F5.
+Warning: Could not detect the deployment.; waiting 5 seconds before trying again (1 tries remaining)
+
+Submitting verification for [src/BUSD.sol:BUSD] 0xb25857e34131681a1E1e3185C3839c3810B6c6F5.
+Warning: Could not detect the deployment.; waiting 5 seconds before trying again (0 tries remaining)
+
+Submitting verification for [src/BUSD.sol:BUSD] 0xb25857e34131681a1E1e3185C3839c3810B6c6F5.
+Submitted contract for verification:
+        Response: `OK`
+        GUID: `wbnnzdqxwj5i1eiytuhthwd1k4kakqyvuhva2wwtvkfc422sn6`
+        URL: https://sepolia.etherscan.io/address/0xb25857e34131681a1e1e3185c3839c3810b6c6f5
+Contract verification status:
+Response: `NOTOK`
+Details: `Pending in queue`
+Warning: Verification is still pending...; waiting 15 seconds before trying again (7 tries remaining)
+Contract verification status:
+Response: `OK`
+Details: `Pass - Verified`
+Contract successfully verified
+All (1) contracts were verified!
+
+Transactions saved to: E:/code/blockchain/proyecto-final\broadcast\DeployBUSD.sol\11155111\run-latest.json
+
+Sensitive values saved to: E:/code/blockchain/proyecto-final/cache\DeployBUSD.sol\11155111\run-latest.json
+
+
+Ras@DESKTOP-U83U106 MINGW64 /e/code/blockchain/proyecto-final (master)
+$ make deployERC721AndVerify
+Deploying ERC721 contract and verifying...
+Error: The system cannot find the file specified. (os error 2)
+make: *** [Makefile:11: deployERC721AndVerify] Error 1
+
+Ras@DESKTOP-U83U106 MINGW64 /e/code/blockchain/proyecto-final (master)
+$ make deployERC721AndVerify
+Deploying ERC721 contract and verifying...
+[⠊] Compiling...
+[⠒] Compiling 1 files with Solc 0.8.29
+[⠑] Solc 0.8.29 finished in 521.64ms
+Compiler run successful!
+Traces:
+  [4943919] DeployCCNFT::run()
+    ├─ [0] VM::startBroadcast()
+    │   └─ ← [Return]
+    ├─ [4895844] → new CCNFT@0xac28cC48a52bDB417128F55872368bfdeBf41448
+    │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: 0x1639e03fCE590b71542A838e2641cD892676e5b0)
+    │   └─ ← [Return] 23993 bytes of code
+    ├─ [0] VM::stopBroadcast()
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+
+Script ran successfully.
+
+## Setting up 1 EVM.
+==========================
+Simulated On-chain Traces:
+
+  [4895844] → new CCNFT@0xac28cC48a52bDB417128F55872368bfdeBf41448
+    ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: 0x1639e03fCE590b71542A838e2641cD892676e5b0)
+    └─ ← [Return] 23993 bytes of code
+
+
+==========================
+
+Chain 11155111
+
+Estimated gas price: 0.002929448 gwei
+
+Estimated total gas used for script: 6916436
+
+Estimated amount required: 0.000020261339607328 ETH
+
+==========================
+
+##### sepolia
+✅  [Success] Hash: 0x6ae0930d75721eff3c4ffd827e38c6244743ba92b5b7ddc6042115da29ace75e
+Contract Address: 0xac28cC48a52bDB417128F55872368bfdeBf41448
+Block: 8657058
+Paid: 0.000010763715410672 ETH (5320336 gas * 0.002023127 gwei)
+
+✅ Sequence #1 on sepolia | Total Paid: 0.000010763715410672 ETH (5320336 gas * avg 0.002023127 gwei)
+
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+##
+Start verification for (1) contracts
+Start verifying contract `0xac28cC48a52bDB417128F55872368bfdeBf41448` deployed on sepolia
+EVM version: cancun
+Compiler version: 0.8.29
+
+Submitting verification for [src/CCNFT.sol:CCNFT] 0xac28cC48a52bDB417128F55872368bfdeBf41448.
+Warning: Could not detect the deployment.; waiting 5 seconds before trying again (4 tries remaining)
+
+Submitting verification for [src/CCNFT.sol:CCNFT] 0xac28cC48a52bDB417128F55872368bfdeBf41448.
+Warning: Could not detect the deployment.; waiting 5 seconds before trying again (3 tries remaining)
+
+Submitting verification for [src/CCNFT.sol:CCNFT] 0xac28cC48a52bDB417128F55872368bfdeBf41448.
+Submitted contract for verification:
+        Response: `OK`
+        GUID: `bge71cgiip8xvmvzber5xiqwcrsfeculyyqqj83myhcvipdr98`
+        URL: https://sepolia.etherscan.io/address/0xac28cc48a52bdb417128f55872368bfdebf41448
+Contract verification status:
+Response: `NOTOK`
+Details: `Pending in queue`
+Warning: Verification is still pending...; waiting 15 seconds before trying again (7 tries remaining)
+Contract verification status:
+Response: `OK`
+Details: `Pass - Verified`
+Contract successfully verified
+All (1) contracts were verified!
+
+Transactions saved to: E:/code/blockchain/proyecto-final/broadcast\DeployCCNFT.sol\11155111\run-latest.json
+
+Sensitive values saved to: E:/code/blockchain/proyecto-final/cache\DeployCCNFT.sol\11155111\run-latest.json

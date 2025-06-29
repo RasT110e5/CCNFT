@@ -1,11 +1,16 @@
 ## INDICACIONES - PROYECTO FINAL
 
-
 ### 1- Inicialización de un nuevo proyecto con foundry
+
+Done
 
 ### 2- Configuración necesaria del archivo foundry.toml y variables de entorno
 
+Done
+
 ### 3- Instalación de contratos de Open Zeppelin
+
+Done
 
 ```shell
 $ forge install OpenZeppelin/openzeppelin-contracts@v4.5.0 --no-commit
@@ -13,17 +18,25 @@ $ forge install OpenZeppelin/openzeppelin-contracts@v4.5.0 --no-commit
 
 ### 4- Desarrollo del contrato CCNFT
 
+Done
+
 ### 5- Desarrollo del contrato de testeo y scripts de despliegue
+Done
 
 ### 6- Compilación del proyecto.
+Done
 
 ### 7- Configuración de archivo Makefile
+Done
 
 ### 7- Despliegue y verificación de contratos mediante scripts de despliegue/verificación
+Done
 
 ### 8- Importación de Tokens BUSD (ERC20) en billetera de Metamask mediante dirección del contrato BUSD desplegado.
+Done
 
 ## 9- Interacción con la funcion "buy"
+
 ### Set de todas las funciones que condicionan a la funcion buy
 
 ### 10- Aprobacion del contrato CCNFT
@@ -44,7 +57,8 @@ $ SetFundsCollector
 
 ### 12- Ejecución de la funcion buy
 
-
 ## ADJUNTAR EL ENLACE DE SEPOLIA ETHERSCAN DE LA DIRECCION DEL CONTRATO DESPLEGADO JUNTO A TODAS LAS INTERACCIONES REALIZADAS INCLUIDA LA COMPRA DEL NFT (BUY).
-## ADJUNTAR UNA CAPTURA DE PANTALLA DEL NFT "CCNFT" Y LOS TOKENS ERC20 "BUSD" IMPORTADOS A METAMASK. 
+
+## ADJUNTAR UNA CAPTURA DE PANTALLA DEL NFT "CCNFT" Y LOS TOKENS ERC20 "BUSD" IMPORTADOS A METAMASK.
+
 ## COMPARTIR EL ENLACE DE GITHUB QUE CONTIENE EL PROYECTO COMPLETO.
