@@ -79,10 +79,31 @@ https://sepolia.etherscan.io/tx/0x59bb85503e1f4ccfc22d4ca4267b5ac642d73d36ed955a
 
 ## ADJUNTAR UNA CAPTURA DE PANTALLA DEL NFT "CCNFT" Y LOS TOKENS ERC20 "BUSD" IMPORTADOS A METAMASK.
 
-![img.png](img.png)
-![img_3.png](img_3.png)
-![img_4.png](img_4.png)
-![img_1.png](img_1.png)
-![img_2.png](img_2.png)
+#### Cuenta con los token ERC20
 
-## COMPARTIR EL ENLACE DE GITHUB QUE CONTIENE EL PROYECTO COMPLETO.
+![img.png](interaction-evidence/AccountWithTokens.png)
+
+#### Descripcion de un NFT con ID 1
+
+![img_3.png](interaction-evidence/NFTWithID1.png)
+
+#### Cuenta con los NFT comprados
+
+![img_4.png](interaction-evidence/NFTsInAccount.png)
+
+#### Cuenta collectora de los fondos
+
+![img_1.png](interaction-evidence/AccountCollectingFunds.png)
+
+#### Cuenta collectora de las fees
+
+![img_2.png](interaction-evidence/AccountCollectingFees.png)
+
+## Put on Sale
+
+1. Transferir BUSD a otra
+   cuenta https://sepolia.etherscan.io/tx/0x32a5383aed7d01177e632967210d15d04878009ba7a9378b0b12f4af4c291592
+2. Poner token 0 en venta https://sepolia.etherscan.io/tx/0x32a5383aed7d01177e632967210d15d04878009ba7a9378b0b12f4af4c291592 
+3. Ejecutar trade https://sepolia.etherscan.io/tx/0x05b5d1b6f73cb2db487c5572f7e13d808ccca9d25ddacd2099f9cb0880145677
+4. ![img.png](interaction-evidence/AnotherAccountWithTokens.png)
+4. ![img.png](interaction-evidence/AnotherAccountWithTradedNFT.png)
